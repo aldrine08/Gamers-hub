@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Device;
+use App\Models\Order;
 
 class OrderController extends Controller
 {
@@ -11,7 +13,7 @@ class OrderController extends Controller
         // Fetch the device
         $device = Device::findOrFail($deviceId);
         // Return a view with a form for selecting the number of days
-        return view('orders.order-form', compact('device'));
+        return view('order.order-form', compact('device'));
     }
 
     public function processOrder(Request $request, $deviceId)
@@ -29,7 +31,7 @@ class OrderController extends Controller
         $totalPrice = $device->price_per_day * $days;
 
         // Return a billing/summary view
-        return view('orders.billing', [
+        return view('order.billing', [
             'device' => $device,
             'days' => $days,
             'totalPrice' => $totalPrice
